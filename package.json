@@ -1,0 +1,21 @@
+{
+  "name": "truetrust",
+  "version": "0.0.1",
+  "description": "True Trust Services",
+  "dependencies": {
+    "formage": "https://github.com/dustinc/formage/archive/v2.7.34.tar.gz",
+    "express": "3.2.x",
+    "mongoose": "3.8.x",
+    "jade": "1.8.x",
+    "stylus": "0.49.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smebberson/formage-admin-example.git"
+  },
+  "author": "Dustin Coffey",
+  "private": "true"
+}

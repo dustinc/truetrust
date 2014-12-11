@@ -1,0 +1,955 @@
+
+
+/** Variables **/
+
+contain = 90%
+
+contained()
+  max-width 95%
+  width 90%
+
+
+/** Mixins **/
+
+boxshadow()
+  -moz-box-shadow 0px 2px 4px -1px rgba(202, 202, 202, 0.59)
+  -webkit-box-shadow 0px 2px 4px -1px rgba(202, 202, 202, 0.59)
+  box-shadow 0px 2px 4px -1px rgba(202, 202, 202, 0.59)
+
+
+boxshadowSmall()
+  -moz-box-shadow 0px 1px 3px -1px rgba(202,202,202,0.59)
+  -webkit-box-shadow 0px 1px 3px -1px rgba(202,202,202,0.59)
+  box-shadow 0px 1px 3px -1px rgba(202,202,202,0.59)
+
+cappedBox()
+  -moz-box-sizing border-box
+  background-color #fff
+  box-sizing border-box
+  border-radius 3px
+  border 1px solid #ddd
+  margin-bottom 20px
+  padding 0px
+
+cappedBoxHead()
+  background #f7f7f7
+  border-top-left-radius 3px
+  border-top-right-radius 3px
+  border-bottom 1px solid #ddd
+  line-height 100%
+  margin 0px
+  padding 10px
+
+cappedBoxContent()
+  padding 10px
+
+
+cursorGrab()
+  cursor -moz-grab
+  cursor -webkit-grab
+
+
+/** Classes **/
+.js-search-fieldset-toggle
+.angle-down
+  display inline-block
+  height 8px
+  width 8px
+  text-align right
+  position absolute
+  right 6px
+  top 15px
+
+.angle-down
+  background url('/images/angle-down-8px.png')
+
+.angle-up
+  background url('/images/angle-up-8px.png')
+
+.box-placement
+  background-color #E3EEF9
+  border 1px solid #BAD6F2
+  box-sizing border-box
+  overflow hidden
+  padding-left 2px
+  padding-top 2px
+  position absolute
+
+.box-shadow
+  boxshadow()
+
+.box-shadow-small
+  boxshadowSmall()
+
+.child-float-left > div
+  float left;
+
+.clearfix
+  display block
+
+.clearfix:after
+  content "."
+  display block
+  height 0
+  clear both
+  visibility hidden
+
+.contain
+  margin 0 auto
+  contained()
+
+.cursor-grab
+  cursorGrab()
+
+.cursor-pointer
+  cursor pointer
+
+.error
+  background-color rgba(255, 186, 210, .9)
+  color red
+
+.float-left
+  float left
+
+.float-right
+  float right
+
+.highlight-mapped-item
+  background-color yellow
+
+.hint
+  color #666666
+  font-size 12px
+  padding 6px
+
+
+.partition
+  background-color #E5E5E5
+  border-right 1px solid white
+  float left
+  height 45px
+  margin 0 10px
+  width 1px
+
+.partition-horizontal
+  background-color #E5E5E5
+  border-bottom 1px solid white
+  height 1px
+  margin 10px 0
+  width 100%
+
+.position-fixed
+  position fixed
+
+.hide
+  display none
+
+.highlight
+  background-color #FFFF9B !important
+
+.small
+  font-size 14px
+
+.spacer-h
+  content " "
+  display block
+  height 1px
+  line-height 80px
+  width 140px
+
+.unit-type-header
+  display inline-block
+  margin-right 20px
+  text-transform capitalize
+  width 600px
+
+.default-pricing-contract
+  display inline-block
+  width 190px
+
+
+.columns
+
+  display block
+
+  .column-first
+    float left
+    width 220px
+
+  .column-last
+    float right
+    width 730px
+
+
+.capped-box
+  cappedBox()
+
+
+.capped-box
+  border 1px solid #ddd
+  border-radius 3px
+  boxshadow()
+  padding 0px
+
+  .capped-box-head
+    cappedBoxHead()
+
+  .capped-box-content
+    cappedBoxContent()
+
+
+/** jQuery UI **/
+.ui-draggable:hover
+  cursor -webkit-grab
+
+ui-draggable-grabbing
+  cursor -webkit-grabbing
+
+
+/** Icon Classes **/
+
+.action-icons-1
+  width 20px
+
+.action-icons-2
+  width 40px
+
+.action-icons-3
+  width 60px
+
+.icon-red-x
+  background-image url('/images/red-x.png')
+  background-repeat no-repeat
+  display inline-block
+  margin 0px 2px
+  height 11px
+  width 11px
+
+.icon-pencil
+  background-image url('/images/pencil.png')
+  background-repeat no-repeat
+  display inline-block
+  margin 0px 2px
+  height 16px
+  width 16px
+
+.icon-glass
+  background-image url('/images/magnifier.png')
+  background-repeat no-repeat
+  display inline-block
+  margin 0px 2px
+  height 16px
+  width 16px
+
+.icon-pdf
+  background-image url('/images/pdf.png')
+  background-repeat no-repeat
+  display inline-block
+  margin 0px 2px
+  height 16px
+  width 16px
+
+.icon-pdf-grayscale
+  background-image url('/images/pdf-grayscale.png')
+  background-repeat no-repeat
+  display inline-block
+  margin 0px 2px
+  height 16px
+  width 16px
+
+.small-icon
+  background-image url('/images/icons.png')
+  display inline-block
+  height 20px
+  width 20px
+
+.icon-arrow-left
+  background-position -385px -337px
+
+.icon-arrow-right
+  background-position -432px -337px
+
+.icon-company
+  background-position -97px -192px
+
+.icon-email-unread
+  background-position -337px 0px
+
+.icon-cell
+  background-position -385px -47px
+
+.icon-location
+  background-position -289px -191px
+
+.icon-grey-pencil
+  background-position -382px -191px
+
+.icon-plus
+  background-position -671px -142px
+  vertical-align -2px
+
+.icon-power
+  background-position -239px -141px
+  vertical-align -2px
+
+.icon-portal
+  background-position -239px -335px
+
+.icon-notify
+  background-position -95px -432px
+
+.icon-x
+  background-position -623px -142px
+
+
+/** Tab List **/
+
+.tab-list
+  section
+    display none
+  section:nth-child(1)
+    display block
+
+
+/** Sub Tab List  **/
+
+.sub-tab-list
+  .sub-tab:not(.visible)
+    display none
+
+
+/** Editable Classes **/
+.editable-item
+  line-height 24px
+  padding-right 4px
+
+.editable-item:hover
+  cursor pointer
+
+
+/** Search Forms **/
+
+form.search-form-simple
+
+  margin-bottom 16px
+
+  fieldset
+    background-color #f6f6f6
+    border 1px solid #ddd
+    border-radius 3px
+    boxshadow()
+    box-sizing border-box
+    margin-bottom 12px
+    padding 4px 12px 20px 12px
+    position relative
+
+  fieldset:not(:first-of-type) > div
+    display none
+
+  legend
+    color #666
+    cursor pointer
+
+  label
+    margin-top 10px
+
+  input[type=text], select
+    margin-right 12px
+
+  .min-width
+    min-width 200px
+    margin-right 12px
+
+
+
+/** Main Styles **/
+
+
+body
+  font 13px Helvetica, arial, freesans, clean, sans-serif
+  line-height 1.4
+  color #333
+
+h1,h2,h3,h4,h5,h6
+  letter-spacing -1px
+
+
+h2
+  font-size 24px
+  padding-bottom 5px
+
+h3
+  font-size 20px
+
+h4
+  font-size 18px
+
+h5
+  font-size 14px
+  letter-spacing 0px
+
+p
+  font-size 13px
+  padding-bottom 6px
+
+small
+  font-size smaller
+
+a
+  color #495A9E
+  text-decoration none
+
+a:hover
+  color #7D88B5
+  cursor pointer
+  text-decoration none
+
+a.inactive
+  color #ccc !important
+
+a.inactive:hover
+  cursor default
+
+strong
+  font-weight bold
+
+ul.grey-list
+  > li
+    background #F8F8F8
+    border-bottom 1px solid #EEEEEE
+    color #484848
+    height 20px
+    padding 6px 10px 6px 10px
+    vertical-align middle
+    white-space nowrap
+
+table
+  border-bottom 1px solid #CACACA
+  border-left none
+  border-right none
+  boxshadow()
+  margin 0
+  margin-bottom 10px
+  width 100%
+
+  tr:first-child
+    th:first-child
+      -webkit-border-top-left-radius 3px
+      -moz-border-radius-top-left 3px
+      border-top-left-radius 3px
+    th:last-child
+      border-top-right-radius 3px
+
+
+  th
+    background-color #E1E5F5
+    background-image -moz-linear-gradient(#FAFAFA, #E1E5F5)
+    background-image -webkit-linear-gradient(#FAFAFA, #E1E5F5)
+    background-image linear-gradient(#FAFAFA, #E1E5F5)
+    background-repeat repeat-x
+    border-left 1px solid #D8D8D8
+    border-top 1px solid #EEEEEE
+    font-size 13px
+    padding 1px 10px 2px 10px
+    text-shadow 0 1px 0 white
+
+  th:last-child
+    border-right 1px solid #CACACA
+
+  tr:nth-child(odd)
+    td
+      background-color #fff
+
+  tr:hover
+    td
+      background-color #E3F4E3
+
+  td
+    background #F8F8F8
+    border-bottom 1px solid #EEEEEE
+    color #484848
+    padding .2em .5em
+    vertical-align middle
+
+  td:first-child
+    border-left 1px solid #CACACA
+
+  td:last-child
+    border-right 1px solid #CACACA
+
+
+dl
+  -webkit-font-smoothing antialiased
+  border-bottom 1px solid #EEEEEE
+  clear both
+  font-size 12px
+  min-height 18px
+  margin 7px 0 2px 0
+
+  dt
+    clear left
+    float left
+    height 18px
+    margin 0
+    width 135px
+
+  dd
+    height 100%
+    margin 0 0 0 22px
+    overflow-x hidden
+    overflow-y hidden
+    text-overflow ellipsis
+    width 195px
+    white-space pre-line
+
+  dd:hover
+    white-space normal
+
+
+form p
+  float left
+
+fieldset
+  background-color #f6f6f6
+  border 1px solid #ddd
+  border-radius 3px
+  boxshadow()
+  box-sizing border-box
+  margin-bottom 12px
+  padding 4px 12px 20px 12px
+
+  legend
+    color #666
+
+fieldset.info
+  background-color transparent
+  padding-bottom 4px
+
+label
+  color #666666
+  display block
+  font-size 13px
+  font-weight bold
+  margin-top 10px
+
+  small
+    font-weight normal
+    font-size 12px
+
+
+select, input[type=text], input[type=number], input[type=password], textarea
+  -moz-box-sizing border-box
+  -webkit-transition all 0.15s ease-in 0
+  background-color #fff
+  background-repeat no-repeat
+  background-position right center
+  border 1px solid #ccc
+  border-radius 3px
+  box-shadow inset 0 1px 2px rgba(0,0,0,0.075)
+  box-sizing border-box
+  color #333
+  height 22px
+  margin-right 4px
+  outline none
+  padding 0px 8px
+  transition all 0.15s ease-in
+  vertical-align middle
+  width 200px
+
+textarea
+  height 50px
+
+textarea.note
+  height 100px
+  width 292px
+
+select
+  background linear-gradient(to bottom, #f9f9f9 0%, rgb(224, 224, 224) 100%)
+  border-radius 3px
+
+input[type=text].price
+  width 80px
+
+input[type=number], .width-100px
+  width 100px
+
+input[type=number].quantity
+  width 60px
+
+input[readonly]
+  background-color #E0E0E0
+
+input:focus, #toolbar #quick-search form input:focus, select:focus
+  border-color #7D88B5
+  box-shadow inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(81,167,232,0.5)
+
+input[type='submit'], input[type='reset'], button, a.button
+  background-color #CCCCCC
+  box-sizing border-box
+  border-radius 2px
+  border none
+  color white
+  cursor pointer
+  display inline-block
+  margin-left 4px
+  padding 2px 10px
+
+  a
+    color: #fff
+
+input[type='submit'], button.save
+  background-color #7D88B5
+
+button.new, a.button.new
+  background-color #7FB57D
+
+button.remove, a.button.remove
+  background-color #FF4F4F
+
+code
+  background-color #f8f8f8
+  border 1px solid #ddd
+  border-radius 3px
+  display inline-block
+  margin 0 2px
+  padding 0px 5px
+  text-align center
+
+
+#toolbar
+  background #f9f9f9
+  background -moz-linear-gradient(top, #f9f9f9 0%, #f3f3f3 100%)
+  background -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#f3f3f3))
+  background -webkit-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+  background -o-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+  background -ms-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+  background linear-gradient(to bottom, #f9f9f9 0%,#f3f3f3 100%)
+  border-bottom 1px solid #dddddd
+  box-shadow 0px 1px 2px 0px rgba(202,202,202,0.59)
+  height 45px
+  text-shadow 0 1px 0 #FFFFFF
+  width 100%
+
+  a#vtrac-logo
+    float left
+    margin-left -10px
+    padding-top 13px
+
+  a
+    font-weight bold
+    color #4F4F4F
+
+  a:hover
+    color #495A9F
+
+  .partition
+    height 45px
+
+  .notify-signal
+    height 100%
+    line-height 24px
+    text-align center
+
+    .notify-status
+      display inline-block
+      width 12px
+      height 12px
+      border-radius 100px
+      background-color #918E8E
+      background-color #DAD5D5
+      background-image -moz-linear-gradient(#918E8E, #DAD5D5)
+      background-image -webkit-linear-gradient(#918E8E, #DAD5D5)
+      background-image linear-gradient(#918E8E, #DAD5D5)
+      background-repeat repeat-x
+      box-shadow inset 0px 2px 3px rgba(0,0,0,0.2), 0px 1px 1px #fff
+
+    .unread
+      background-color rgb(197, 16, 16)
+      background-image linear-gradient(rgb(238, 24, 24), rgb(255, 61, 61))
+      background-repeat repeat-x
+      box-shadow 0 1px 0 rgba(255,255,255,0.15) inset, 0 0 6px #c44141
+
+
+  #quick-search
+    float left
+    padding-top 8px
+
+    form
+      position relative
+      -webkit-transition width 0.2s ease-in-out 0
+      transition width 0.2s ease-in-out
+      width 235px
+      z-index 95
+
+      input
+        -moz-box-sizing border-box
+        -webkit-box-sizing border-box
+        background-color #FFFFFF
+        border-radius 3px
+        border 1px solid #DDDDDD
+        box-shadow inset 0 1px 3px rgba(0, 0, 0, 0.075),0 1px 0 rgba(255, 255, 255, 0.5)
+        box-sizing border-box
+        color #333333
+        font-size 14px
+        height 30px
+        padding 5px 0 5px 8px
+        width 100%
+
+    .display
+      -moz-background-clip padding-box
+      -webkit-background-clip padding-box
+      background-clip padding-box
+      background-color #fff
+      border 1px solid rgba(0,0,0,0.2)
+      border-radius 3px
+      box-shadow 0 1px 5px rgba(0,0,0,0.25)
+      -moz-box-sizing border-box
+      -webkit-box-sizing border-box
+      box-sizing border-box
+      left 0
+      max-height 300px
+      opacity 1
+      overflow-y auto
+      padding 2px 0px
+      position absolute
+      right 0
+      top 100%
+      visibility visible
+      z-index 95
+
+    .help-icon
+      bottom 0
+      color #999
+      cursor pointer
+      height auto
+      line-height 31px
+      position absolute
+      right 7px
+      top 0
+      width 12px
+      z-index 96
+
+    .search-help
+      dl
+        border-bottom 1px solid #ddd
+        clear both
+        display block
+        font-size 12px
+        height 30px
+
+        dt
+          color #333
+          float left
+          width inherit
+          padding 5px 0px 4px 6px
+
+        dd
+          color #333
+          float right
+          width inherit
+          padding 5px 6px 4px 0px
+
+      dl:last-child
+        border none
+
+    .search-message
+      color #666666
+      font-size 14px
+      padding 6px
+
+    .search-suggestions
+      a
+        display block
+        height: 22px;
+        line-height 22px
+        padding 0px 7px 0px
+        white-space nowrap
+
+      a:hover
+        background-color #f6f6f6
+
+      a.selected
+        background-color #f6f6f6
+        color #495A9F
+
+
+
+  ul#main-menu
+    float left
+    padding-top 15px
+
+    li
+      position relative
+      float left
+
+      > ul
+        left 8px
+
+        li
+          float none
+
+          a
+            padding 3px 5px 3px 10px
+
+      a
+        padding 0 5px 0 10px
+
+    li:hover > ul
+      display block
+
+
+  ul#user-menu
+    float right
+    padding-top 15px
+    position relative
+
+    li
+      float left
+
+      a
+        padding-left 7px
+
+      > ul
+        right 0
+
+        li
+          float none
+
+          a
+            padding 3px 5px 3px 4px
+
+            span:last-child
+              min-width 80px
+              padding-left 4px
+              text-align left
+
+        li:last-child
+          a
+            padding-bottom 8px
+
+
+li ul.sub-menu
+  background-clip padding-box
+  background-color #fff
+  border 1px solid rgba(0,0,0,0.2)
+  border-radius 3px
+  box-shadow 0 1px 5px rgba(0,0,0,0.25)
+  display none
+  max-height 500px
+  position absolute
+  z-index 2
+
+  li
+    float none
+    min-width 110px
+    white-space nowrap
+    width 100%
+
+    a
+      display block
+
+      span
+        box-sizing border-box
+        display inline-block
+        height 20px
+        line-height 25px
+        vertical-align middle
+
+
+li ul.sub-menu.lookups
+  overflow-y scroll
+
+li:hover > ul.sub-menu
+  display block
+
+
+#header
+  width 100%
+
+  h2
+    padding-bottom 5px
+
+#breadcrumb
+  padding 0 0 5px 2px
+
+#page-menu
+  margin-bottom 5px
+
+  ul
+    background #f9f9f9
+    background -moz-linear-gradient(top, #f9f9f9 0%, #f3f3f3 100%)
+    background -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#f3f3f3))
+    background -webkit-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+    background -o-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+    background -ms-linear-gradient(top, #f9f9f9 0%,#f3f3f3 100%)
+    background linear-gradient(to bottom, #f9f9f9 0%,#f3f3f3 100%)
+    border 1px solid #EAEAEA
+    border-bottom-color #CACACA
+    border-bottom none
+    border-radius 3px
+
+    li
+      background transparent
+      border none
+      display table-cell
+      list-style-type none
+      padding 0
+      vertical-align middle
+      white-space none
+      width 1%
+
+      a
+        border-right 1px solid #EEE
+        border-right-color rgba(0, 0, 0, 0.04)
+        border-left 1px solid #FCFCFC
+        border-left-color rgba(255, 255, 255, 0.7)
+        border-bottom 2px solid #DADADA
+        color #777777
+        display block
+        font-size 12px
+        font-weight bold
+        line-height 30px
+        text-align center
+        text-decoration none
+        text-shadow 0 1px 0 white
+
+      a:hover
+        color #495A9F
+        border-bottom 2px solid #CFDCE8
+        background-color #EAECF3
+        background-image -moz-linear-gradient(#FAFAFA, #EAECF3)
+        background-image -webkit-linear-gradient(#FAFAFA, #EAECF3)
+        background-image linear-gradient(#FAFAFA, #EAECF3)
+        background-repeat repeat-x
+
+      a.selected
+        color black
+        background-color #EBEBEB
+        background-image -moz-linear-gradient(#FCFCFC, #EBEBEB)
+        background-image -webkit-linear-gradient(#FCFCFC, #EBEBEB)
+        background-image linear-gradient(#FCFCFC, #EBEBEB)
+        background-repeat repeat-x
+        border-bottom 2px solid #7D88B5
+
+
+    li:first-child
+      a
+        border-left none
+        border-top-left-radius 3px
+
+    li:last-child
+      a
+        border-right none
+
+
+#footer
+  border-top 1px solid #eee
+  clear both
+  height 60px
+  margin-top 40px
+  padding-top 10px
+
+
+#ui-datepicker-div
+  z-index 95 !important
+
