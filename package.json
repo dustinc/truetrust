@@ -1,6 +1,6 @@
 {
   "name": "truetrust",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "True Trust Services",
   "dependencies": {
     "formage": "https://github.com/dustinc/formage/archive/v2.7.35.tar.gz",
