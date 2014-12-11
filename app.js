@@ -61,16 +61,16 @@ app.set('formage_view_path', path.normalize(__dirname + '/views/formage'));
 
 
 // all environments
-app.set('env', process.env.NODE_ENV || 'development')
+app.set('env', process.env.NODE_ENV || 'development');
 app.set('port', process.env.PORT || 3000);
-app.set('mongo', process.env.MONGO_URL || 'mongodb://localhost/truetrust')
+app.set('mongo', process.env.MONGOLAB_URI || 'mongodb://localhost/truetrust');
 app.set('views', path.normalize(__dirname + '/views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.cookieParser('secret'));
-app.use(express.cookieSession({cookie: { maxAge: 1000 * 60 * 60 * 24 }}))
+app.use(express.cookieSession({cookie: { maxAge: 1000 * 60 * 60 * 24 }}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
