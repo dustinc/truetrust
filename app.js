@@ -57,8 +57,6 @@ formage.fields.PhoneField = formage.fields.BaseField.extend({
 
 app.set('formage', formage);
 
-console.log('view path', path.normalize(__dirname + '/views'));
-
 app.set('formage_view_path', path.normalize(__dirname + '/views/formage'));
 
 
