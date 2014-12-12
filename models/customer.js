@@ -6,37 +6,6 @@ var mongoose = require('mongoose'),
 
     formage = app.get('formage'),
 
-    // asset
-    asset = new mongoose.Schema({
-      asset_type: { type: String, enum: ['House', 'Stock', 'Business'] },
-      approx_value: { type: String },
-      trustee: { type: String },
-      successor_ttee: { type: String },
-      beneficiaries: [{ type: String }],
-      protector: { type: String },
-      name_of_trust: { type: String },
-      type_of_trust: { type: String, enum: ['Living Trust', 'Private Asset Protection Trust'] },
-      ein_number: { type: Number },
-      five_zero_one_c: { type: String },
-      registration_number: { type: String },
-      funded: { type: String },
-      ucc1: { type: String },
-      status: { type: String, enum: ['Completed', 'Incomplete', 'Wait'] },
-      notes: [{ type: SchemaTypes.Text }]
-    }),
-
-    // payment
-    payment = new mongoose.Schema({
-      date: { type: Date },
-      amount: { type: Number },
-      type: { type: String, enum: ['Check', 'Credit Card', 'Cash', 'Direct Deposit', 'Wire Transfer', 'PayPal'] },
-      check_number: { type: String },
-      account_name: { type: String },
-      account_last_four: { type: Number },
-      authorization: { type: String },
-      wire_transfer_confirmation: { type: String },
-    }),
-
     // email
     email = new mongoose.Schema({
       email: { type: String, formageField: formage.fields.EmailField },
@@ -69,8 +38,6 @@ var mongoose = require('mongoose'),
       addresses: [address],
       referred_by: { type: String },
       sales_associate: { type: String },
-      assests: [asset],
-      payments: [payment],
       quote: { type: Number },
       annual_fee: { type: Number },
       payment_plan: { type: String },
@@ -80,18 +47,26 @@ var mongoose = require('mongoose'),
       member_level: { type: String },
       healthcare_directive: { type: String }
     }),
+    model;
 
-    model = mongoose.model('Customer', schema);
+
+// methods
+schema.methods.toString = function() {
+  return this.first_name + ' ' + this.last_name;
+};
 
 
+
+// init model
+model = mongoose.model('customer', schema);
+
+
+// model formage settings
 model.formage = {
-
   section: 'Customer',
-
+  label: 'Customers',
   list: ['first_name', 'last_name', 'email', 'phone'],
-
   search: ['first_name', 'last_name', 'email', 'phone']
-
 };
 
 
