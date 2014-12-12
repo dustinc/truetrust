@@ -6,18 +6,6 @@ var mongoose = require('mongoose'),
 
     formage = app.get('formage'),
 
-    // email
-    email = new mongoose.Schema({
-      email: { type: String, formageField: formage.fields.EmailField },
-      is_main: { type: Boolean, default: false }
-    }),
-
-    // phone
-    phone = new mongoose.Schema({
-      number: { type: String, formageField: formage.fields.PhoneField },
-      type: { type: String }
-    }),
-
     // address
     address = new mongoose.Schema({
       street: { type: String },
@@ -32,9 +20,9 @@ var mongoose = require('mongoose'),
       last_name: { type: String, required: true },
       other_names: { type: String },
       phone: { type: String, formageField: formage.fields.PhoneField },
-      other_phones: [phone],
+      other_phones: [{ type: String, formageField: formage.fields.PhoneField }],
       email: { type: String, formageField: formage.fields.EmailField },
-      other_emails: [email],
+      other_emails: [{ type: String, formageField: formage.fields.EmailField }],
       addresses: [address],
       referred_by: { type: String },
       sales_associate: { type: String },
@@ -66,7 +54,7 @@ model.formage = {
   section: 'Customer',
   label: 'Customers',
   list: ['first_name', 'last_name', 'email', 'phone'],
-  search: ['first_name', 'last_name', 'email', 'phone']
+  search: ['first_name', 'last_name', 'email', 'other_emails', 'phone']
 };
 
 
