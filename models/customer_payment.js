@@ -1,10 +1,11 @@
 
 var mongoose = require('mongoose'),
     SchemaTypes = mongoose.Schema.Types,
+    moment = require('moment'),
 
     schema = new mongoose.Schema({
       customer: { type: mongoose.Schema.ObjectId, ref: 'customer', required: true },
-      date: { type: Date },
+      date: { type: Date, get: function(d) { if(!d) {return'';} return moment(d).format('MM/DD/YYYY'); } },
       amount: { type: Number },
       type: { type: String, enum: ['Check', 'Credit Card', 'Cash', 'Direct Deposit', 'Wire Transfer', 'PayPal'] },
       check_number: { type: String },
