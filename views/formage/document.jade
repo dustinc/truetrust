@@ -29,6 +29,11 @@ block body
                 button#deleteButton.btn.btn-large.btn-danger(type='button',data-loading-text='Deleting...') Delete
             - each action in actions
                 - if (action.id != 'delete')
+                  - if (action.redirect)
+                    button.action.btn.btn-large(value='#{action.id}', data-redirect='#{action.redirect}') #{action.label}
+                  - else if (action.redirect_append)
+                    button.action.btn.btn-large(value='#{action.id}', data-redirect-append='#{action.redirect_append}') #{action.label}
+                  - else
                     button.action.btn.btn-large(value='#{action.id}') #{action.label}
 
     - if (!isDialog)
