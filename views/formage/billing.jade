@@ -1,0 +1,241 @@
+doctype html
+html
+  head
+    title= title
+    style.
+      /** Eric Meyer's CSS Reset **/
+      /* v1.0 | 20080212 */
+      html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,
+      kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+      }
+      /* remember to define focus styles! */
+      a,*focus,*active {
+        outline: 0;
+      }
+      /* for FireFox */
+      input[type="submit"]-moz-focus-inner,input[type="button"]-moz-focus-inner {
+        border: 0px;
+      }
+      /* for IE8 */
+      input[type="submit"]focus,input[type="button"]focus {
+        outline: none;
+      }
+      body {
+        line-height: 1;
+        color: #000;
+        background: #fff;
+      }
+      ol,ul {
+        list-style: none;
+      }
+      /* tables still need 'cellspacing="0"' in the markup */
+      table {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      caption,th,td {
+        text-align: left;
+        font-weight: normal;
+      }
+      blockquote:before,blockquote:after,q:before,q:after {
+        content: "";
+      }
+      blockquote,q {
+        quotes: "" "";
+      }
+      /** End Meyer Reset **/
+
+
+
+      /** Statement Styles **/
+      .clearfix {
+        display: block;
+      }
+      .clearfix:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
+
+      body {
+        font-family: Sans-Serif;
+        font-size: 11px;
+      }
+
+      div#header {
+        margin-bottom: 24px;
+      }
+
+      div#header .contain {
+        min-height: 160px;
+      }
+
+      div#h_left {
+        float: left;
+      }
+      div#h_right {
+        float: right;
+      }
+      div#h_right .contain > div {
+        padding-bottom: 5px;
+        padding-left: 15px;
+      }
+
+      h1 {
+        color: #ededed;
+        font-size: 50px;
+        margin: 0;
+        margin-bottom: 20px;
+        padding-right: 50px;
+        text-align: right;
+      }
+
+      h3 {
+        font-size: 22px;
+      }
+
+      table {
+        border-bottom: 2px solid #cacaca;
+        margin: 0;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      table td {
+        border-top: 2px solid #cacaca;
+        border-right: 2px solid #cacaca;
+        color: #484848;
+        padding: 0.2em 0.5em;
+        vertical-align: middle;
+      }
+      table td:first-child {
+        border-left: 2px solid #cacaca;
+      }
+      table td.gray {
+        background-color: #eeeeee;
+      }
+
+      small {
+        color: #484848;
+        display: inline-block;
+        margin: 3px 0px;
+      }
+
+      div#container {
+        padding: 40px;
+      }
+
+      div#footer p {
+        color: #484848;
+        text-align: center;
+      }
+
+
+  body
+    div#container
+      div#header
+        div#h_left.float-left
+          .contain
+            img(src='http://localhost:3000/images/Logo-True-Trust-Eagle.gif')
+            h3 TRUE TRUST.com
+            small 10AM to Midnight 365 days
+            br
+            small: b (949) 497-3600
+
+          #bill-to
+            p Bill To:
+            br
+            | #{customer.first_name} #{customer.last_name}
+            if customer.addresses && customer.addresses.length
+              br
+              | #{customer.addresses[0].street}
+              br
+              | #{customer.addresses[0].city}, #{customer.addresses[0].state} #{customer.addresses[0].zip}
+            br
+            | #{customer.phone}
+
+        div#h_right.float-left
+          .contain
+            h1 Statement
+            div Date: #{today_date}
+            div Statement #:
+            div Customer ID: #{customer.customer_id}
+
+          div#comments
+            p Comments:
+
+        div.clearfix
+      div.clearfix
+
+      div#body
+        table
+          thead
+            tr
+              th Date
+              th Description
+              th Balance
+              th Amount
+          tbody
+            each payment in payments
+              tr
+                td= payment.date
+                td= payment.type
+                td
+                td= accounting.formatMoney(payment.amount)
+
+        table
+          thead
+            tr
+              th Current
+              th 1-30 Days Past Due
+              th 31-60 Days Past Due
+              th 61-90 Days Past Due
+              th Over 90 Days Past Due
+              th Amount Due
+          tbody
+            tr
+              td.gray= accounting.formatMoney(customer.balance)
+              td
+              td
+              td
+              td
+              td.gray= accounting.formatMoney(customer.balance)
+
+        table
+          thead
+            tr
+              th(style='width:145px;') Remittance
+              th
+          tbody
+            tr
+              td Statement #
+              td.gray #{customer.customer_id}-001
+           tr
+              td Date
+              td
+           tr
+              td Amount Due
+              td.gray= accounting.formatMoney(customer.balance)
+           tr
+              td Amount Enclosed
+              td
+
+
+
+      div#footer
+        br
+        p Make all checks payable to TRUE TRUST
+        p: b Thank you for your business!
+        br
+        p 668 N COAST HWY #400 LAGUNA BEACH, CA 92651 Ph: (949) 497-3600 truetrust@gmail.com
