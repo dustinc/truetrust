@@ -147,7 +147,7 @@ html
       div#header
         div#h_left.float-left
           .contain
-            img(src='http://localhost:3000/images/Logo-True-Trust-Eagle.gif')
+            img(src='#{root_url}/images/Logo-True-Trust-Eagle.gif')
             h3 TRUE TRUST.com
             small 10AM to Midnight 365 days
             br
@@ -169,11 +169,11 @@ html
           .contain
             h1 Statement
             div Date: #{today_date}
-            div Statement #: #{customer.customer_id}-001
+            div Statement #: #{statement_id}
             div Customer ID: #{customer.customer_id}
 
           div#comments
-            p Comments:
+            p Comments: #{comment}
 
         div.clearfix
       div.clearfix
@@ -220,7 +220,7 @@ html
           tbody
             tr
               td Statement #
-              td.gray #{customer.customer_id}-001
+              td.gray #{statement_id}
            tr
               td Date
               td
