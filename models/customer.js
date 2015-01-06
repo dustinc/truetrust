@@ -31,9 +31,14 @@ var mongoose = require('mongoose'),
       payment_plan: { type: String },
       balance: { type: Number },
       balance_past_due: { type: String, enum: ['30 DAYS PAST DUE', '60 DAYS PAST DUE', '90+ DAYS PAST DUE'] },
+      balance_past_due_30_days: { type: Number },
+      balance_past_due_60_days: { type: Number },
+      balance_past_due_90_plus_days: { type: Number },
       customer_id: { type: String },
       member_level: { type: String },
-      healthcare_directive: { type: String }
+      healthcare_directive: { type: String },
+      billing_statement: { type: Boolean, default: false, label: 'Create Billing Statement Upon Saving?' },
+      billing_statement_comment: { type: String, widget: 'TextAreaWidget' }
     }),
     model;
 
