@@ -43,6 +43,10 @@ var mongoose = require('mongoose'),
     model;
 
 
+schema.virtual('full_name').get(function() {
+  return this.first_name + ' ' + this.last_name;
+});
+
 
 // methods
 schema.methods.toString = function() {
