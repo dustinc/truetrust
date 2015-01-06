@@ -78,8 +78,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', express.static(path.join(__dirname, 'public')));
 app.use(stylus.middleware({ src: path.normalize(__dirname + '/styl'), dest: path.normalize(__dirname + '/public/admin') }));
 
+app.use(function(req, res, next) {
+  if(app.get('root_url')) return next();
+  app.set('root_url', req.protocol+'://'+req.get('host'));
+  next();
+});
+
 
 models = require('./models');
+
+app.set('models', models);
 
 
 // development only
@@ -107,38 +115,32 @@ admin.app.locals.global_head = '<style>\n.formage .nf_listfield_container > .fie
 
 
 admin.app.get('/model/:modelName/document/:documentId/statement', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
-  // get customer
-  models.customer.findOne({ _id: req.params.documentId }, function(err, customer) {
+
+  models.customer_statement.getRecentByCustomer(req.params.documentId, function(err, statement) {
     if(err) return next(err);
 
-    // get payments
-    models.customer_payment.find({ customer: req.params.documentId }).exec(function(err, payments) {
-      var moment = require('moment');
+    var pdf = require('html-pdf'),
+        filename = statement.statement_id+'.pdf'
 
-      // render billing statement html
-      admin.app.render('billing', { customer: customer, payments: payments, today_date: moment().format('MM/DD/YYYY'),  accounting: require('accounting') }, function(err, html) {
-        var fs = require('fs'),
-            pdf = require('html-pdf'),
-            file_name = customer.customer_id+'-001.pdf';
-        if(err) return next(err);
+    // html to pdf
+    pdf.create(statement.html, {}, function(err, buffer) {
+      if(err) return next(err);
 
-        // html to pdf
-        pdf.create(html, {}, function(err, buffer) {
-          if(err) return next(err);
-
-          // write pdf to public dir
-          fs.writeFile('./public/'+file_name, buffer, function(err) {
-            if(err) return next(err);
-
-            // download
-            return res.redirect(req.protocol+'://'+req.get('host')+'/'+file_name);
-          });
-        });
+      res.status(200);
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Disposition': 'inline; filename='+filename
       });
+      res.send(buffer);
+
     });
   });
+
 });
 
+
+app.set('admin', admin);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

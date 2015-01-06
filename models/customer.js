@@ -53,6 +53,94 @@ schema.methods.toString = function() {
   return this.first_name + ' ' + this.last_name;
 };
 
+
+schema.statics.createBillingStatements = function(ids, cb) {
+  var _ = require('lodash'),
+      messages = [],
+      self = this;
+  _.each(ids, function(id, i) {
+    self.model('customer').createBillingStatement(id, null, function(err, message) {
+      if(err) return cb(err);
+      messages.push(message);
+      // final id processed; init cb
+      if(ids.length == i+1) {
+        console.log('ids.length', ids.length, 'i+1', i+1);
+        cb(null, messages);
+      }
+    });
+  });
+};
+
+schema.statics.createBillingStatement = function(id, comment, cb) {
+  var admin = app.get('admin'),
+      models = app.get('models'),
+      root_url = app.get('root_url'),
+      _ = require('lodash');
+
+
+  models.customer.findOne({ _id: id }, function(err, customer) {
+    if(err) return cb(err);
+
+    // get payments
+    models.customer_payment.find({ customer: id }).exec(function(err, payments) {
+
+      // get incremented customer statement id
+      models.counter.increment(customer.customer_id, function(err, counter) {
+        if(err) return cb(err);
+
+        var moment = require('moment'),
+            statement_id = customer.customer_id + '-' + counter.seq,
+            today_date = moment().format('MM/DD/YYYY'),
+            bindings = {
+              customer: customer,
+              payments: payments,
+              comment: comment,
+              statement_id: statement_id,
+              today_date: today_date,
+              accounting: require('accounting'),
+              root_url: root_url
+            };
+
+        // render billing statement html
+        admin.app.render('billing', bindings, function(err, html) {
+          var file_name = statement_id+'.pdf';
+              file_path = root_url + '/' + file_name;
+
+          if(err) return cb(err);
+
+          var customer_statement = new models.customer_statement({
+            statement_id: statement_id,
+            customer: customer._id,
+            customer_name: customer.full_name,
+            html: html,
+            file_path: file_path,
+          });
+
+          customer_statement.save(function(err) {
+            if(err) return cb(err);
+            cb(null, 'Statement created for: '+customer.full_name);
+          });
+
+        });
+      });
+    });
+  });
+
+}
+
+
+schema.pre('save', function(next) {
+  var self = this;
+  if(!this.billing_statement) return next();
+  this.model('customer').createBillingStatement(this._id, this.billing_statement_comment, function(err,  message) {
+    self.billing_statement = false;
+    self.billing_statement_comment = '';
+    next();
+  });
+});
+
+
+
 // init model
 model = mongoose.model('customer', schema);
 
@@ -63,13 +151,15 @@ model.formage = {
   label: 'Customers',
   list: ['first_name', 'last_name', 'email', 'phone'],
   search: ['first_name', 'last_name', 'email', 'other_emails', 'phone'],
+
   actions: [
     {
       id: 'billing_statement',
       label: 'Create New Billing Statement',
+      render_on: 'model',
       redirect_append: '/statement',
       func: function(user, ids, cb) {
-        cb();
+        this.model('customer').createBillingStatements(ids, cb);
       }
     }
   ]
