@@ -150,19 +150,7 @@ model.formage = {
   section: 'Customer',
   label: 'Customers',
   list: ['first_name', 'last_name', 'email', 'phone'],
-  search: ['first_name', 'last_name', 'email', 'other_emails', 'phone'],
-
-  actions: [
-    {
-      id: 'billing_statement',
-      label: 'Create New Billing Statement',
-      render_on: 'model',
-      redirect_append: '/statement',
-      func: function(user, ids, cb) {
-        this.model('customer').createBillingStatements(ids, cb);
-      }
-    }
-  ]
+  search: ['first_name', 'last_name', 'email', 'other_emails', 'phone']
 };
 
 
