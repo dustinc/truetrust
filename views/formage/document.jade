@@ -48,3 +48,14 @@ block scripts
     script.
         var model = '#{model_name}';
         var isDialog = !{JSON.stringify(Boolean(isDialog))};
+        $(function() {
+          $("input#id_billing_statement").on("change", function() {
+            var $form = $(this).closest('form');
+            if(this.checked) {
+              console.log('form', $form);
+              $form.append('<input type="hidden" name="returl" value="'+window.location.pathname+'/statement/pdf" />');
+            } else {
+              $form.find('input[name=returl]').remove();
+            }
+          });
+        });
