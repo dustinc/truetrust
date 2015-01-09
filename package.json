@@ -1,6 +1,6 @@
 {
   "name": "truetrust",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "True Trust Services",
   "dependencies": {
     "accounting": "^0.4.1",
