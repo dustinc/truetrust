@@ -114,31 +114,74 @@ var admin = formage.init(app, express, models, {
 admin.app.locals.global_head = '<style>\n.formage .nf_listfield_container > .field_label { font-size: inherit; font-weight: normal; }\n</style>';
 
 
-admin.app.get('/model/:modelName/document/:documentId/statement', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
+// open/download most recent customer statement
+admin.app.get('/model/customer/document/:documentId/statement/:statementAction', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
 
   models.customer_statement.getRecentByCustomer(req.params.documentId, function(err, statement) {
     if(err) return next(err);
+    if(!statement) return next(new Error('No Statements for customer ' + req.params.documentId));
 
-    var pdf = require('html-pdf'),
-        filename = statement.statement_id+'.pdf'
+    if(req.params.statementAction == 'open') {
+      return res.send(statement.html);
+    }
+    else if(req.params.statementAction == 'download') {
 
-    // html to pdf
-    pdf.create(statement.html, {}, function(err, buffer) {
-      if(err) return next(err);
+      var pdf = require('html-pdf'),
+          filename = statement.statement_id+'.pdf'
 
-      res.status(200);
-      res.set({
-        'Content-Type': 'application/pdf',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Disposition': 'inline; filename='+filename
+      // html to pdf
+      pdf.create(statement.html, {}, function(err, buffer) {
+        if(err) return next(err);
+
+        res.status(200);
+        res.set({
+          'Content-Type': 'application/pdf',
+          'Access-Control-Allow-Origin': '*',
+          'Content-Disposition': 'inline; filename='+filename
+        });
+        res.send(buffer);
+
       });
-      res.send(buffer);
 
-    });
+    }
+
   });
 
 });
 
+
+// open/download statement by id
+admin.app.get('/model/customer_statement/document/:documentId/:statementAction', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
+  models.customer_statement.findOne({ _id: req.params.documentId }, function(err, statement) {
+    if(err) return next(err);
+    if(!statement) return next(new Error('Statement: '+ req.params.documentId +' not found.'));
+
+    if(req.params.statementAction == 'open') {
+      return res.send(statement.html);
+    }
+    else if(req.params.statementAction == 'download') {
+
+      var pdf = require('html-pdf'),
+          filename = statement.statement_id+'.pdf'
+
+      // html to pdf
+      pdf.create(statement.html, {}, function(err, buffer) {
+        if(err) return next(err);
+
+        res.status(200);
+        res.set({
+          'Content-Type': 'application/pdf',
+          'Access-Control-Allow-Origin': '*',
+          'Content-Disposition': 'inline; filename='+filename
+        });
+        res.send(buffer);
+
+      });
+
+    }
+
+  });
+});
 
 app.set('admin', admin);
 
