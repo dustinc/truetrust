@@ -113,9 +113,16 @@ var admin = formage.init(app, express, models, {
 
 admin.app.locals.global_head = '<style>\n.formage .nf_listfield_container > .field_label { font-size: inherit; font-weight: normal; }\n</style>';
 
+var setParam = function(k, v) {
+  return function(req, res, next) {
+    req.params[k] = v;
+    next();
+  }
+};
+
 
 // open/download most recent customer statement
-admin.app.get('/model/customer/document/:documentId/statement/:statementAction', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
+admin.app.get('/model/customer/document/:documentId/statement/:statementAction', setParam('modelName', 'customer_statement'), admin.app.controllers.authMiddleware('view'), function(req, res, next) {
 
   models.customer_statement.getRecentByCustomer(req.params.documentId, function(err, statement) {
     if(err) return next(err);
@@ -151,7 +158,7 @@ admin.app.get('/model/customer/document/:documentId/statement/:statementAction',
 
 
 // open/download statement by id
-admin.app.get('/model/customer_statement/document/:documentId/:statementAction', admin.app.controllers.authMiddleware('view'), function(req, res, next) {
+admin.app.get('/model/customer_statement/document/:documentId/:statementAction', setParam('modelName', 'customer_statement'), admin.app.controllers.authMiddleware('view'), function(req, res, next) {
   models.customer_statement.findOne({ _id: req.params.documentId }, function(err, statement) {
     if(err) return next(err);
     if(!statement) return next(new Error('Statement: '+ req.params.documentId +' not found.'));
