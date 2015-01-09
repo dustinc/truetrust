@@ -3,10 +3,12 @@ var mongoose = require('mongoose'),
 
     SchemaTypes = mongoose.Schema.Types,
 
+    money = require('./../lib/money'),
+
     schema = new mongoose.Schema({
       customer: { type: mongoose.Schema.ObjectId, ref: 'customer', required: true },
       asset_type: { type: String, enum: ['House', 'Stock', 'Business'] },
-      approx_value: { type: String },
+      approx_value: { type: String, get: money.format, set: money.unformat },
       trustee: { type: String },
       successor_ttee: { type: String },
       beneficiaries: [{ type: String }],
@@ -16,7 +18,7 @@ var mongoose = require('mongoose'),
       ein_number: { type: Number },
       five_zero_one_c: { type: String },
       registration_number: { type: String },
-      funded: { type: String },
+      funded: { type: String, get: money.format, set: money.unformat },
       ucc1: { type: String },
       status: { type: String, enum: ['Completed', 'Incomplete', 'Wait'] },
       notes: [{ type: SchemaTypes.Text }]
