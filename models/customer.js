@@ -131,7 +131,6 @@ schema.statics.createBillingStatement = function(id, comment, cb) {
             statement_id: statement_id,
             customer: customer._id,
             customer_name: customer.full_name,
-            comment: comment,
             html: html,
             file_path: file_path,
           });

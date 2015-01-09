@@ -2,21 +2,32 @@
 
 var mongoose = require('mongoose'),
     moment = require('moment'),
-    formatDate = function(d) {
-      if(!d) return '';
-      return moment(d).format('MM/DD/YYYY');
+    date = require('./../lib/date'),
+    createLink = function(href, text) {
+      return '<a href="/admin/model/customer_statement/document' + href + '" target="_blank">' + text + '</a>'
     },
 
     schema = new mongoose.Schema({
-      date: { type: Date, default: new Date },
+      date: { type: Date, default: new Date, get: date.format },
       statement_id: { type: String },
       customer: { type: mongoose.Schema.ObjectId, ref: 'customer', required: true },
       customer_name: { type: String },
-      comment: { type: String },
-      html: { type: mongoose.Schema.Types.Mixed }
+      html: { type: mongoose.Schema.Types.Mixed },
+      open: {
+        type: mongoose.Schema.Types.Html,
+        get: function(val) {
+          return createLink('/' + this._id.toString() + '/open', this.statement_id);
+        }
+      },
+      download: {
+        type: mongoose.Schema.Types.Html,
+        get: function(val) {
+          var text = this.statement_id + '.pdf';
+          return createLink('/' + this._id.toString() + '/pdf', text);
+        }
+      }
     }),
     model;
-
 
 
 schema.statics.getRecentByCustomer = function(id, cb) {
@@ -31,15 +42,6 @@ schema.methods.toString = function() {
   return this.statement_id;
 };
 
-schema.post('save', function() {
-  console.log('POST SAVE customer_statement', this.statement_id, this.customer);
-  this.model('customer').update({ _id: this.customer }, { $addToSet: { statements: this._id } }, function(err, num) {
-    console.log('updated customer.statements', err, num);
-  });
-});
-
-
-
 
 model = mongoose.model('customer_statement', schema);
 
@@ -47,6 +49,7 @@ model = mongoose.model('customer_statement', schema);
 model.formage = {
   section: 'Customer',
   label: 'Customer Statements',
+  list: ['statement_id', 'date', 'customer', 'download'],
   list_populate: ['customer'],
   search: ['statement_id', 'date', 'customer_name']
 };
