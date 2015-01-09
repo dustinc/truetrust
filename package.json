@@ -1,11 +1,11 @@
 {
   "name": "truetrust",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "True Trust Services",
   "dependencies": {
     "accounting": "^0.4.1",
     "express": "3.2.x",
-    "formage": "https://github.com/dustinc/formage/archive/v2.7.37.tar.gz",
+    "formage": "dustinc/formage",
     "html-pdf": "^0.3.0",
     "jade": "1.8.x",
     "lodash": "^2.4.1",
