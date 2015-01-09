@@ -23,7 +23,7 @@ var mongoose = require('mongoose'),
         type: mongoose.Schema.Types.Html,
         get: function(val) {
           var text = this.statement_id + '.pdf';
-          return createLink('/' + this._id.toString() + '/pdf', text);
+          return createLink('/' + this._id.toString() + '/download', text);
         }
       }
     }),
