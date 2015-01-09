@@ -6,7 +6,7 @@ mixin fielddesc(value, type, document_url)
     - var geomery = value && value.geometry && value.geometry.lat + ',' + value.geometry.lng;
     - var maps_url = geomery && 'https://maps.google.com/?q=' + geomery;
     - var filename = value && value.filename;
-    - var date_string = value && value.toISOString ? value.toISOString().split('T')[0] : '';
+    - var date_string = value && value.toISOString ? value.toISOString().split('T')[0] : value;
     case type
         when 'Picture'
             a(href=value_url, target='_blank'): img(src=cloudinary_url)
