@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 
     formage = app.get('formage'),
 
+    money = require('./../lib/money'),
+
     // address
     address = new mongoose.Schema({
       street: { type: String },
@@ -26,14 +28,15 @@ var mongoose = require('mongoose'),
       addresses: [address],
       referred_by: { type: String },
       sales_associate: { type: String },
-      quote: { type: Number },
-      annual_fee: { type: Number },
-      payment_plan: { type: String },
-      balance: { type: Number },
+      quote: { type: String, get: money.format, set: money.unformat },
+      annual_fee: { type: String, get: money.format, set: money.unformat },
+      plan_payment_amount: { type: String, get: money.format, set: money.unformat },
+      plan_payment_cycle: { type: String, enum: ['Monthly', 'Quarterly', 'Annually'] },
+      balance: { type: String, get: money.format, set: money.unformat },
       balance_past_due: { type: String, enum: ['30 DAYS PAST DUE', '60 DAYS PAST DUE', '90+ DAYS PAST DUE'] },
-      balance_past_due_30_days: { type: Number },
-      balance_past_due_60_days: { type: Number },
-      balance_past_due_90_plus_days: { type: Number },
+      balance_past_due_30_days: { type: String, get: money.format, set: money.unformat },
+      balance_past_due_60_days: { type: String, get: money.format, set: money.unformat },
+      balance_past_due_90_plus_days: { type: String, get: money.format, set: money.unformat },
       customer_id: { type: String },
       member_level: { type: String },
       healthcare_directive: { type: String },
@@ -47,13 +50,26 @@ schema.virtual('full_name').get(function() {
   return this.first_name + ' ' + this.last_name;
 });
 
+schema.virtual('total_due').get(function() {
+  var accounting = require('accounting'),
+      total = accounting.unformat(this.plan_payment_amount)
+            + accounting.unformat(this.balance_past_due_30_days || 0)
+            + accounting.unformat(this.balance_past_due_60_days || 0)
+            + accounting.unformat(this.balance_past_due_90_plus_days || 0);
+  return accounting.formatMoney(total);
+});
+
 
 // methods
 schema.methods.toString = function() {
-  return this.first_name + ' ' + this.last_name;
+  return this.first_name + ' ' + this.last_name + ' ' + this.customer_id;
 };
 
 
+// statics
+
+
+// create billing statement for each looped id
 schema.statics.createBillingStatements = function(ids, cb) {
   var _ = require('lodash'),
       messages = [],
@@ -71,6 +87,8 @@ schema.statics.createBillingStatements = function(ids, cb) {
   });
 };
 
+
+// create billing statement
 schema.statics.createBillingStatement = function(id, comment, cb) {
   var admin = app.get('admin'),
       models = app.get('models'),
@@ -96,8 +114,9 @@ schema.statics.createBillingStatement = function(id, comment, cb) {
               payments: payments,
               comment: comment,
               statement_id: statement_id,
+              moment: moment,
               today_date: today_date,
-              accounting: require('accounting'),
+              money: require('./../lib/money'),
               root_url: root_url
             };
 
@@ -112,6 +131,7 @@ schema.statics.createBillingStatement = function(id, comment, cb) {
             statement_id: statement_id,
             customer: customer._id,
             customer_name: customer.full_name,
+            comment: comment,
             html: html,
             file_path: file_path,
           });
@@ -129,10 +149,13 @@ schema.statics.createBillingStatement = function(id, comment, cb) {
 }
 
 
+// pre save
 schema.pre('save', function(next) {
   var self = this;
   if(!this.billing_statement) return next();
+  // create new billing statement if billing_statement is true
   this.model('customer').createBillingStatement(this._id, this.billing_statement_comment, function(err,  message) {
+    // clear for next billing
     self.billing_statement = false;
     self.billing_statement_comment = '';
     next();
