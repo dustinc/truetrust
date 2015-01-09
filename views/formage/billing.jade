@@ -168,12 +168,13 @@ html
         div#h_right.float-left
           .contain
             h1 Statement
-            div Date: #{today_date}
+            div Date: #{moment().format('MM/DD/YYYY')}
             div Statement #: #{statement_id}
             div Customer ID: #{customer.customer_id}
 
           div#comments
-            p Comments: #{comment}
+            p Comments:&nbsp;
+              span#comment #{comment}
 
         div.clearfix
       div.clearfix
@@ -187,12 +188,14 @@ html
               th Balance
               th Amount
           tbody
+            - var deduct = new money.deduct(customer.quote);
+            - var balance = customer.quote;
             each payment in payments
               tr
                 td= payment.date
                 td= payment.type
-                td
-                td= accounting.formatMoney(payment.amount)
+                td= deduct(payment.amount)
+                td= payment.amount
 
         table
           thead
@@ -205,12 +208,12 @@ html
               th Amount Due
           tbody
             tr
-              td.gray= accounting.formatMoney(customer.balance)
+              td.gray= customer.plan_payment_amount
               td
-              td
-              td
-              td
-              td.gray= accounting.formatMoney(customer.balance)
+              td= customer.balance_past_due_30_days
+              td= customer.balance_past_due_60_days
+              td= customer.balance_past_due_90_plus_days
+              td.gray= customer.total_due
 
         table
           thead
@@ -226,7 +229,7 @@ html
               td
            tr
               td Amount Due
-              td.gray= accounting.formatMoney(customer.balance)
+              td.gray= customer.total_due
            tr
               td Amount Enclosed
               td
