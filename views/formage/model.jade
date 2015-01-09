@@ -164,7 +164,8 @@ block body
 
                                 td
                                     div.btn-group
-                                        a.btn.btn-primary(href=document_url) Edit
+                                        if editable
+                                            a.btn.btn-primary(href=document_url) Edit
                                         if cloneable
                                             a.btn.btn-default(href="#{rootPath}/model/#{model_name}/document/new?orig=#{row.id}") Duplicate
 
