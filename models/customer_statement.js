@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
       statement_id: { type: String },
       customer: { type: mongoose.Schema.ObjectId, ref: 'customer', required: true },
       customer_name: { type: String },
-      comments: { type: String },
+      comment: { type: String },
       html: { type: mongoose.Schema.Types.Mixed }
     }),
     model;
