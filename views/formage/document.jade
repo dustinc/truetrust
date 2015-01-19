@@ -53,7 +53,7 @@ block scripts
             var $form = $(this).closest('form');
             if(this.checked) {
               console.log('form', $form);
-              $form.append('<input type="hidden" name="returl" value="'+window.location.pathname+'/statement/pdf" />');
+              $form.append('<input type="hidden" name="returl" value="'+window.location.pathname+'/statement/download" />');
             } else {
               $form.find('input[name=returl]').remove();
             }
